@@ -1,0 +1,61 @@
+{
+  "name": "nice-storybook-theme",
+  "version": "0.1.0",
+  "description": "Storybook addon: the Nice design-system UX for Storybook's manager — a token-styled sidebar tree (folder + branch-connector glyphs, depth/selection-aware lines, hidden search) plus the surrounding custom chrome.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./manager": {
+      "types": "./dist/manager.d.ts",
+      "import": "./dist/manager.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "storybook",
+    "storybook-addons",
+    "sidebar",
+    "navigation",
+    "nice",
+    "design-system"
+  ],
+  "author": "Nice Prototypes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/niceprototypes/nice-storybook-theme"
+  },
+  "bugs": {
+    "url": "https://github.com/niceprototypes/nice-storybook-theme/issues"
+  },
+  "homepage": "https://github.com/niceprototypes/nice-storybook-theme#readme",
+  "peerDependencies": {
+    "storybook": ">=10.0.0",
+    "storybook-dark-mode": ">=5.0.0"
+  },
+  "dependencies": {
+    "nice-icons": "^4.0.0",
+    "nice-styles": "^17.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "storybook": "^10.2.19",
+    "storybook-dark-mode": "^5.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^6.0.3"
+  }
+}
