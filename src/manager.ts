@@ -4,6 +4,8 @@ import { applyTheme } from "nice-styles"
 import { ADDON_ID } from "./constants"
 import { injectSidebarGlyphs } from "./manager/glyphs"
 import { startSidebarTagging } from "./manager/tagSidebarPaths"
+import { managerResetCss } from "./styles/managerResetCss"
+import { managerBackgroundCss } from "./styles/managerBackgroundCss"
 import { managerSidebarCss } from "./styles/managerSidebarCss"
 
 /**
@@ -18,11 +20,12 @@ import { managerSidebarCss } from "./styles/managerSidebarCss"
 // ancestors), so the tree reads as folders rather than always-open roots.
 addons.setConfig({ sidebar: { showRoots: false } })
 
-// Inject the sidebar stylesheet + glyph masks, then start tagging the tree so
-// the CSS/glyphs have their data attributes to read.
-const sidebarStyle = document.createElement("style")
-sidebarStyle.textContent = managerSidebarCss
-document.head.appendChild(sidebarStyle)
+// Inject the manager chrome stylesheet (reset → background → sidebar, in cascade
+// order) + the glyph masks, then start tagging the tree so the CSS/glyphs have
+// their data attributes to read.
+const chromeStyle = document.createElement("style")
+chromeStyle.textContent = `${managerResetCss}\n${managerBackgroundCss}\n${managerSidebarCss}`
+document.head.appendChild(chromeStyle)
 injectSidebarGlyphs()
 startSidebarTagging()
 
