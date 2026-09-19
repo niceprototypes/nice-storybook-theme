@@ -25,6 +25,7 @@ const outerBranchIcon =
  */
 export function injectSidebarGlyphs(): void {
   const folderIcon = getIconEncoded("folder-closed")
+  const closeIcon = getIconEncoded("x")
   const style = document.createElement("style")
   document.head.appendChild(style)
   style.textContent = `
@@ -83,6 +84,32 @@ export function injectSidebarGlyphs(): void {
       > [tabindex] > div:first-child > svg {
         -webkit-mask-image: url("${folderIcon}");
         mask-image: url("${folderIcon}");
+      }
+    }
+  }
+
+  /* The mobile menu's close button ships a circled X. Paint the Nice x over it
+     with the same masking: hide the original paths and treat the SVG box as a
+     mask filled with the button's own color. */
+  button[aria-label="Close menu"] {
+    width: var(--np--size);
+    height: var(--np--size);
+
+    > svg {
+      width: var(--np--icon--size--large);
+      height: var(--np--icon--size--large);
+      -webkit-mask-image: url("${closeIcon}");
+      mask-image: url("${closeIcon}");
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      background-color: currentColor;
+
+      > * {
+        display: none;
       }
     }
   }

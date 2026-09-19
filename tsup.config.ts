@@ -16,5 +16,8 @@ export default defineConfig({
   dts: true,
   clean: true,
   sourcemap: true,
-  external: ["storybook", "storybook-dark-mode", /^@storybook\//, /^nice-/],
+  // Subpath-aware: the manager entry imports storybook/manager-api, which a bare
+  // "storybook" external does not match — bundling it drags in
+  // storybook/internal/* and breaks the host's global-externals mapping.
+  external: [/^storybook(\/|$)/, "storybook-dark-mode", /^@storybook\//, /^nice-/],
 })

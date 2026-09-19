@@ -12,6 +12,8 @@
  * Storybook 10. A Storybook internal change can require updating these
  * selectors.
  */
+import { getBreakpoint } from "nice-styles"
+
 export const managerSidebarCss = `
 /* Tokens */
 
@@ -28,7 +30,7 @@ export const managerSidebarCss = `
 /* Containers */
 
 .sidebar-container {
-  padding-left: var(--np--gap--large);
+  padding: 0 var(--np--gap--large);
   [data-radix-scroll-area-content] > div {
     gap: 0;
     padding: 0;
@@ -85,7 +87,6 @@ export const managerSidebarCss = `
     > [tabindex] {
       height: var(--np--size--small);
       align-items: center;
-      font-size: var(--np--font-size--small);
       font-weight: var(--np--font-weight--medium);
       padding: 0;
       gap: var(--icon--gap);
@@ -150,10 +151,23 @@ export const managerSidebarCss = `
     }
   }
 
+  /* Keep a depth-2 marker in the outer gutter, so the line runs straight past a
+     folder instead of jogging inward through its contents. Two cases need it:
+
+     1. A row that is not one of the selection's peers (data-selected-group-item
+        is false) — it only renders above the selection, so it is on the line's
+        way, not on its path.
+     2. Any depth-2 row when the selection sits at depth 1. That selection's
+        immediate group is the depth-0 section, so the group's run covers the
+        whole section and sweeps every depth-2 row in every sibling folder into
+        data-selected-group-item — which is exactly what case 1 excludes. A row
+        cannot tell this from being a true peer of a depth-2 selection, since the
+        difference is the selection's own depth, published as
+        data-selected-depth on the container. */
   &[data-path-depth="2"][data-selected="false"][data-selected-group-item="false"][data-nodetype="group"][data-before-selected="true"] > [tabindex] > div:first-child,
-  &[data-path-depth="2"][data-selected="false"][data-selected-group-item="false"][data-nodetype="group"][data-selected="true"] > [tabindex] > div:first-child,
   &[data-path-depth="2"][data-selected="false"][data-selected-group-item="false"][data-nodetype="document"][data-before-selected="true"] > [tabindex],
-  &[data-path-depth="2"][data-selected="false"][data-selected-group-item="false"][data-nodetype="document"][data-selected="true"] > [tabindex] {
+  .sidebar-container[data-selected-depth="1"] &[data-path-depth="2"][data-selected="false"][data-nodetype="group"] > [tabindex] > div:first-child,
+  .sidebar-container[data-selected-depth="1"] &[data-path-depth="2"][data-selected="false"][data-nodetype="document"] > [tabindex] {
     > div:first-child::after {
       transform: translate(-150%, -50%);
     }
@@ -248,6 +262,22 @@ export const managerSidebarCss = `
         }
       }
     }
+  }
+}
+
+/* Breakpoint-dependent rules. The floors are interpolated from getBreakpoint so
+   they track the token source rather than being duplicated as literals here — a
+   CSS variable cannot drive a media condition. */
+${getBreakpoint("laptop+")} {
+  .sidebar-container {
+    padding-right: 0;
+  }
+
+  /* The label drops to \`small\` only where there is room; below laptop it keeps
+     the base size, which reads better on a narrow menu. */
+  .sidebar-item[data-nodetype="group"] > [tabindex],
+  .sidebar-item[data-nodetype="document"] > [tabindex] {
+    font-size: var(--np--font-size--small);
   }
 }
 `

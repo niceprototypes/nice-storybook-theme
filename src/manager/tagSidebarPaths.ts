@@ -10,6 +10,7 @@
  * - `data-before-selected`     — rows above the selection within its section.
  * - `data-selected-group-item` — the selection's peers in its immediate group.
  * - `data-has-selected`        — on `.sidebar-container`, whether a story is open.
+ * - `data-selected-depth`      — on `.sidebar-container`, the open story's depth.
  *
  * {@link startSidebarTagging} runs it once and re-runs it on every relevant tree
  * or selection change via a `MutationObserver`.
@@ -60,6 +61,17 @@ function tagSidebarPaths(): void {
   container?.setAttribute("data-has-selected", String(selectedId !== null))
 
   const selectedIndex = items.findIndex(el => el.getAttribute("data-selected") === "true")
+
+  // data-selected-depth: on .sidebar-container — how deep the open story sits. No
+  // row can know this, and the branch line needs it: a row DEEPER than the
+  // selection is never on the path to it, so its marker belongs in the outer
+  // gutter. Rows cannot tell that case apart on their own, because a depth-1
+  // selection makes its "group" the depth-0 section, which sweeps every depth-2
+  // row in unrelated folders into data-selected-group-item.
+  container?.setAttribute(
+    "data-selected-depth",
+    selectedIndex === -1 ? "" : String(depths[selectedIndex]),
+  )
   const selectedGroupId =
     selectedIndex === -1 ? null : items[selectedIndex].getAttribute("data-parent-id")
 

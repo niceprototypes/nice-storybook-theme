@@ -9,13 +9,15 @@ export const managerResetCss = `
 /* Storybook sets the manager <body> font from a static global (its default
    "Nunito Sans" stack), not from the theme fontBase — override it here. */
 html[data-theme] body {
-  background-color: hsla(212, 10%, 100%, 1);
+  background-color: var(--np--background-color);
   font-family: "Avenir Next", -apple-system, BlinkMacSystemFont, "Roboto",
   sans-serif !important;
 }
 
+/* The night value is reached through the token's own theme primitive rather
+   than a second literal, so a consumer retheming the tokens retheme this too. */
 html[data-theme="night"] body {
-  background-color: hsla(212, 10%, 15%, 1);
+  background-color: var(--np--background-color--night);
 }
 
 /* Day mode only: turn off Storybook's default font smoothing so light-theme
@@ -41,11 +43,20 @@ body.light * {
   -ms-overflow-style: none;
 }
 
-.sb-bar,
 [data-radix-scroll-area-viewport]::-webkit-scrollbar {
   display: none !important;
 }
 
-[data-state="visible"] {
+/* The Radix scrollbar track fades in on scroll; keep it invisible. Scoped to the
+   sidebar's own scroll area — a bare [data-state="visible"] would reach every
+   Radix component any other addon renders. */
+.sidebar-container [data-radix-scroll-area-scrollbar][data-state="visible"] {
   opacity: 0 !important;
+}
+
+/* Storybook's mobile bar duplicates chrome this addon restyles. Hidden last and
+   on its own, rather than folded into the scrollbar rule above, so a consumer
+   can see it is a separate decision and override it. */
+.sb-bar {
+  display: none !important;
 }`

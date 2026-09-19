@@ -9,16 +9,17 @@ import { managerBackgroundCss } from "./styles/managerBackgroundCss"
 import { managerSidebarCss } from "./styles/managerSidebarCss"
 
 /**
- * Manager entry. Loaded by Storybook from `nice-storybook-navigation/manager`.
+ * Manager entry. Loaded by Storybook from `nice-storybook-theme/manager`.
  * Runs on import: restyles the sidebar tree (glyphs + token-driven branch lines
  * + hidden search) and keeps its tokens flipping with the theme. Only the
  * sidebar is configured here — the consumer keeps ownership of the manager theme
  * and branding via their own `addons.setConfig`.
+ *
+ * The tree is designed for collapsible sections — `sidebar: { showRoots: false }`
+ * — but that is the consumer's call, not this addon's: calling `setConfig` here
+ * would race the consumer's own call and silently win or lose depending on load
+ * order. Set it yourself alongside your theme.
  */
-
-// Collapsible top-level sections (Storybook expands only the selected story's
-// ancestors), so the tree reads as folders rather than always-open roots.
-addons.setConfig({ sidebar: { showRoots: false } })
 
 // Inject the manager chrome stylesheet (reset → background → sidebar, in cascade
 // order) + the glyph masks, then start tagging the tree so the CSS/glyphs have
