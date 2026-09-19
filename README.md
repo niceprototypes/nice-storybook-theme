@@ -12,6 +12,19 @@ sidebar tree**:
 It touches only the sidebar; the consumer keeps ownership of the manager theme
 and branding.
 
+## Screens
+
+The sidebar tree at desktop width: folder glyphs on the sections, branch
+connectors down the open one, and the line reading as active only along the path
+to the selected page.
+
+<img src="docs/desktop.png" alt="The Storybook manager with the restyled sidebar: folder glyphs on each section, branch connector lines down the open Basics folder, and the selected page highlighted." width="100%">
+
+Below tablet the sidebar moves behind Storybook's own mobile menu, leaving the
+manager chrome the addon also restyles.
+
+<img src="docs/mobile.png" alt="The Storybook manager at phone width, with the sidebar behind the mobile menu." width="320">
+
 ## Install
 
 ```bash
