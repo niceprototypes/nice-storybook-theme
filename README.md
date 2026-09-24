@@ -3,11 +3,14 @@
 A Storybook addon for the Nice design system that restyles the **manager
 sidebar tree**:
 
-- Folder + branch-connector glyphs and depth/selection-aware tree lines, drawn
+- Folder glyphs and depth/selection-aware tree lines at any nesting depth, drawn
   from Nice design tokens (so they flip with the theme).
 - Collapsible top-level sections and a hidden search.
-- A `tagSidebarPaths` engine that stamps derived `data-*` attributes on the tree
-  (depth, branch ends, selection ancestry) for the stylesheet to read.
+- A `tagSidebarPaths` engine that injects a guide strip into each row — one
+  `aria-hidden` cell per depth level, each tagged with the connector it draws
+  (`data-branch`) and whether the path to the open story runs through it
+  (`data-path`) — plus the selection ancestry (`data-selected-group`), for the
+  stylesheet to read.
 
 It touches only the sidebar; the consumer keeps ownership of the manager theme
 and branding.
@@ -54,7 +57,7 @@ the Nice manager theming) for the sidebar to pick up its colors.
 ## Caveat
 
 The sidebar styling depends on Storybook's **private** sidebar DOM
-(`.sidebar-item`, `data-nodetype`, `[tabindex] > div:first-child > svg`, …),
+(`.sidebar-item`, `data-nodetype`, `[tabindex] > div > svg`, …),
 verified against **Storybook 10**. A Storybook internal change can require
 updating the selectors in `src/styles/managerSidebarCss.ts` and
 `src/manager/glyphs.ts`.
