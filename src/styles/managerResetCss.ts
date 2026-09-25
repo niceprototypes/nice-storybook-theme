@@ -38,19 +38,23 @@ body.light * {
 
 /* Hide the sidebar scrollbar (Radix scroll-area viewport) while keeping it
    scrollable — cross-browser: Firefox, legacy Edge/IE, and WebKit. */
-[data-radix-scroll-area-viewport] {
+.sidebar-container [data-radix-scroll-area-viewport] {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-[data-radix-scroll-area-viewport]::-webkit-scrollbar {
+.sidebar-container [data-radix-scroll-area-viewport]::-webkit-scrollbar {
   display: none !important;
+  width: 0;
+  height: 0;
 }
 
-/* The Radix scrollbar track fades in on scroll; keep it invisible. Scoped to the
-   sidebar's own scroll area — a bare [data-state="visible"] would reach every
-   Radix component any other addon renders. */
-.sidebar-container [data-radix-scroll-area-scrollbar][data-state="visible"] {
+/* The scroll area's own scrollbar track fades in on hover and scroll; keep it
+   invisible. Storybook 10 renders it as the viewport's next sibling carrying
+   only data-orientation / data-state — no data-radix-scroll-area-scrollbar
+   attribute — so it is reached by position. Scoped to the sidebar's own scroll
+   area so it cannot reach any other addon's scroll areas. */
+.sidebar-container [data-radix-scroll-area-viewport] ~ [data-orientation] {
   opacity: 0 !important;
 }
 
