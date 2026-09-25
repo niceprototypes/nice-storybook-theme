@@ -44,15 +44,15 @@
   },
   "homepage": "https://github.com/niceprototypes/nice-storybook-theme#readme",
   "peerDependencies": {
+    "nice-icons": "^4.0.0",
+    "nice-styles": "^17.1.0",
     "storybook": ">=10.0.0",
     "storybook-dark-mode": ">=5.0.0"
   },
-  "dependencies": {
-    "nice-icons": "^4.0.0",
-    "nice-styles": "^17.1.0"
-  },
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "nice-icons": "file:../icons",
+    "nice-styles": "file:../styles",
     "storybook": "^10.2.19",
     "storybook-dark-mode": "^5.0.0",
     "tsup": "^8.0.0",
