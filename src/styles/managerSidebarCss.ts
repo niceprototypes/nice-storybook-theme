@@ -85,6 +85,12 @@ export const managerSidebarCss = `
   display: none;
 }
 
+/* Bottom — drop the shadow Storybook casts over the tree from the bottom bar. */
+
+#sidebar-bottom-wrapper > div > div {
+  box-shadow: none;
+}
+
 /* Items */
 
 .sidebar-item {
