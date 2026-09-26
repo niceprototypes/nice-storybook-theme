@@ -54,6 +54,17 @@ export default config
 The consumer's manager must provide the Nice `--np--*` token variables (e.g. via
 the Nice manager theming) for the sidebar to pick up its colors.
 
+The addon owns one preview token, `contentMaxWidth` (the docs content width).
+Register it in your app's one `setTokens` call, then use the `contentMaxWidth`
+constant (`var(--np--content-max-width)`) wherever content is capped:
+
+```ts
+import { setTokens } from "nice-react-styles"
+import { TOKENS } from "nice-storybook-theme"
+
+setTokens({ ...TOKENS, ...AppTokenMap })
+```
+
 ## Caveat
 
 The sidebar styling depends on Storybook's **private** sidebar DOM

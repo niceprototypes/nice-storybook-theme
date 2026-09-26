@@ -2,7 +2,8 @@ import { defineConfig } from "tsup"
 
 /**
  * Two entry points:
- * - `index`   — the public API (just the addon id today).
+ * - `index`   — the public API: the addon id, the `contentMaxWidth` constant, and
+ *   `TOKENS` for the consumer's `setTokens` call.
  * - `manager` — the manager-side register: sidebar tree restyle (glyphs +
  *   token-driven branch lines + hidden search) and the `tagSidebarPaths` engine.
  *   Loaded by Storybook from `nice-storybook-navigation/manager`.
