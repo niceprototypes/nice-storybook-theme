@@ -60,7 +60,8 @@ body.light * {
 
 /* Storybook's mobile bar duplicates chrome this addon restyles. Hidden last and
    on its own, rather than folded into the scrollbar rule above, so a consumer
-   can see it is a separate decision and override it. */
-.sb-bar {
+   can see it is a separate decision and override it. Keyed on its banner role:
+   the preview toolbar also carries .sb-bar (as a role="region"). */
+.sb-bar[role="banner"] {
   display: none !important;
 }`

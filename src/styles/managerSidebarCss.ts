@@ -97,15 +97,20 @@ export const managerSidebarCss = `
   background-color: transparent !important;
 
   &[data-nodetype="group"],
-  &[data-nodetype="document"] {
+  &[data-nodetype="document"],
+  &[data-nodetype="story"] {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 
+    /* min-height, not height: a label that wraps grows its row instead of
+       spilling into the next one. The vertical padding spaces wrapped lines from
+       their neighbours; single-line rows stay at the size token. The tree guides
+       stretch with the row and their arms stay on its centre line. */
     > [tabindex] {
-      height: ${getToken("size:small")};
+      min-height: ${getToken("size:small")};
       align-items: center;
       font-weight: ${getToken("fontWeight:medium")};
-      padding: 0;
+      padding: ${getToken("gap:smaller")} 0;
       gap: ${iconGap};
       color: ${getToken("color")};
     }
@@ -144,8 +149,9 @@ export const managerSidebarCss = `
     }
   }
 
-  /* A document is a leaf: its connector leads straight to the label. */
-  &[data-nodetype="document"] {
+  /* A document or story is a leaf: its connector leads straight to the label. */
+  &[data-nodetype="document"],
+  &[data-nodetype="story"] {
     > [tabindex] > div {
       display: none;
     }
@@ -205,7 +211,8 @@ export const managerSidebarCss = `
 .sidebar-container[data-has-selected="true"] {
   .sidebar-item[data-selected="false"][data-selected-group="false"] {
     &[data-nodetype="group"],
-    &[data-nodetype="document"] {
+    &[data-nodetype="document"],
+    &[data-nodetype="story"] {
       > [tabindex] {
         color: ${getToken("color:lighter")};
 
@@ -242,7 +249,8 @@ ${getBreakpoint("laptop+")} {
   /* The label drops to \`small\` only where there is room; below laptop it keeps
      the base size, which reads better on a narrow menu. */
   .sidebar-item[data-nodetype="group"] > [tabindex],
-  .sidebar-item[data-nodetype="document"] > [tabindex] {
+  .sidebar-item[data-nodetype="document"] > [tabindex],
+  .sidebar-item[data-nodetype="story"] > [tabindex] {
     font-size: ${getToken("fontSize:small")};
   }
 }
