@@ -1,3 +1,12 @@
+**This repository is no longer maintained.** Development continues in the Nice UI monorepo.
+
+- New location: https://github.com/niceprototypes/nice-ux/tree/main/packages/storybook-theme
+- New npm package: `@niceprototypes/storybook-theme`
+
+---
+
+# Legacy documentation
+
 # nice-storybook-theme
 
 A Storybook addon for the Nice design system that restyles the **manager
